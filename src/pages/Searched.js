@@ -1,30 +1,24 @@
 import React, {useState, useEffect} from 'react' 
-import styled  from 'styled-components' 
+import styled from 'styled-components' 
+import {Link,useParams} from 'react-router-dom'
 
-import {Link, useParams} from 'react-router-dom' 
-
-
-
- function Meal() { 
-  const [meals, setMeals] = useState([])  
-
-  let params = useParams()
-  function getMeals(name){
-    fetch(`https://api.edamam.com/search?q=${name}&app_id=${process.env.REACT_APP_API_ID}&app_key=${process.env.REACT_APP_API_KEY}`)
+function Searched() { 
+    const [searchedMeal, setSearchMeal] = useState([])  
+    let params = useParams() 
+    
+    function getSearchedMeal(name){
+        fetch(`https://api.edamam.com/search?q=${name}&app_id=${process.env.REACT_APP_API_ID}&app_key=${process.env.REACT_APP_API_KEY}`)
          .then((res) => res.json()) 
-         .then((result) => {  
-          console.log(result.hits)
-          setMeals(result.hits)
-        })
-  } 
-  useEffect(() => { 
-    getMeals(params.type)
-    console.log(params.type)
-  },[params.type])
+         .then((result) => setSearchMeal(result.hits))
+    } 
+    useEffect(() => {
+        getSearchedMeal(params.type)
+    }, [params.type])
+
   return (
     <Grid>
-      {meals.map((item) => {
-        return (
+        {searchedMeal.map((item) => { 
+            return (
           <Card key={Math.random() * 100}> 
             <Link to={`/recipe/${item.recipe.label}`}>
             <img src={item.recipe.image} alt={item.recipe.label}/> 
@@ -33,7 +27,8 @@ import {Link, useParams} from 'react-router-dom'
 
           </Card>
         )
-      })}
+
+        })}
     </Grid>
   )
 } 
@@ -56,4 +51,4 @@ h4 {
 }
 ` 
 
-export default Meal
+export default Searched

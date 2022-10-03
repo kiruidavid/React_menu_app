@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components" 
 import { Splide, SplideSlide } from '@splidejs/react-splide'; 
 import '@splidejs/react-splide/css' 
+import {Link} from 'react-router-dom'
 
 function Vegetarian(){ 
     const [vegetarian, setVegetarian] = useState([]) 
@@ -47,10 +48,12 @@ function Vegetarian(){
                
                 {vegetarian.map((veg) => ( 
                     <SplideSlide key={Math.random() * 100}> 
-                    <Card >
+                    <Card> 
+                    <Link to={`/recipe/${veg.recipe.label}`}>
                     <p>{veg.recipe.label}</p> 
                     <img src={veg.recipe.image} alt={veg.recipe.label}/> 
-                    <Gradient />
+                    <Gradient /> 
+                    </Link>
                     </Card>
 
 
