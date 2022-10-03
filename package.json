@@ -2,6 +2,7 @@
   "name": "my_menu-app",
   "version": "0.1.0",
   "private": true,
+  "proxy":"https://api.edamam.com",
   "dependencies": {
     "@splidejs/react-splide": "^0.7.11",
     "@testing-library/jest-dom": "^5.16.5",
